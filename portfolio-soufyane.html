@@ -1,0 +1,580 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Soufyane — Consultant Chef de Projet Odoo</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg: #0d0d0d;
+    --surface: #161616;
+    --surface2: #1e1e1e;
+    --border: rgba(255,255,255,0.08);
+    --text: #f0ede6;
+    --muted: #888;
+    --accent: #c8a96e;
+    --accent2: #e8d5b0;
+    --green: #4a9c6f;
+  }
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  html { scroll-behavior: smooth; }
+  body {
+    background: var(--bg);
+    color: var(--text);
+    font-family: 'DM Sans', sans-serif;
+    font-weight: 300;
+    line-height: 1.7;
+    overflow-x: hidden;
+  }
+
+  /* NAV */
+  nav {
+    position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+    display: flex; align-items: center; justify-content: space-between;
+    padding: 1.2rem 3rem;
+    background: rgba(13,13,13,0.85);
+    backdrop-filter: blur(12px);
+    border-bottom: 1px solid var(--border);
+  }
+  .nav-logo {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 1.4rem; font-weight: 300;
+    color: var(--accent); letter-spacing: 0.05em;
+  }
+  .nav-links { display: flex; gap: 2rem; list-style: none; }
+  .nav-links a {
+    color: var(--muted); text-decoration: none; font-size: 0.82rem;
+    letter-spacing: 0.12em; text-transform: uppercase;
+    transition: color 0.2s;
+  }
+  .nav-links a:hover { color: var(--accent); }
+
+  /* HERO */
+  .hero {
+    min-height: 100vh;
+    display: flex; align-items: center;
+    padding: 8rem 3rem 4rem;
+    position: relative;
+    overflow: hidden;
+  }
+  .hero::before {
+    content: '';
+    position: absolute; top: -20%; right: -10%;
+    width: 600px; height: 600px;
+    border-radius: 50%;
+    background: radial-gradient(circle, rgba(200,169,110,0.06) 0%, transparent 70%);
+    pointer-events: none;
+  }
+  .hero-inner { max-width: 900px; }
+  .hero-tag {
+    display: inline-block;
+    font-size: 0.75rem; letter-spacing: 0.2em; text-transform: uppercase;
+    color: var(--accent); border: 1px solid rgba(200,169,110,0.3);
+    padding: 0.35rem 1rem; border-radius: 2px; margin-bottom: 2rem;
+  }
+  .hero h1 {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: clamp(3.5rem, 8vw, 7rem);
+    font-weight: 300; line-height: 1.05;
+    margin-bottom: 1.5rem;
+  }
+  .hero h1 em { font-style: italic; color: var(--accent); }
+  .hero-subtitle {
+    font-size: 1.05rem; color: var(--muted);
+    max-width: 520px; line-height: 1.8;
+    margin-bottom: 3rem;
+  }
+  .hero-btns { display: flex; gap: 1rem; flex-wrap: wrap; }
+  .btn-primary {
+    background: var(--accent); color: #0d0d0d;
+    padding: 0.85rem 2rem; border: none; cursor: pointer;
+    font-family: 'DM Sans', sans-serif; font-size: 0.85rem;
+    letter-spacing: 0.08em; text-transform: uppercase;
+    text-decoration: none; display: inline-block;
+    transition: background 0.2s, transform 0.15s;
+  }
+  .btn-primary:hover { background: var(--accent2); transform: translateY(-1px); }
+  .btn-outline {
+    background: transparent; color: var(--text);
+    padding: 0.85rem 2rem; border: 1px solid var(--border);
+    cursor: pointer; font-family: 'DM Sans', sans-serif; font-size: 0.85rem;
+    letter-spacing: 0.08em; text-transform: uppercase;
+    text-decoration: none; display: inline-block;
+    transition: border-color 0.2s, color 0.2s;
+  }
+  .btn-outline:hover { border-color: var(--accent); color: var(--accent); }
+  .hero-scroll {
+    position: absolute; bottom: 2.5rem; left: 50%; transform: translateX(-50%);
+    display: flex; flex-direction: column; align-items: center; gap: 0.4rem;
+    color: var(--muted); font-size: 0.7rem; letter-spacing: 0.15em; text-transform: uppercase;
+    animation: bounce 2s infinite;
+  }
+  .hero-scroll::after {
+    content: ''; width: 1px; height: 40px; background: var(--border);
+  }
+  @keyframes bounce { 0%,100%{transform:translateX(-50%) translateY(0)} 50%{transform:translateX(-50%) translateY(6px)} }
+
+  /* SECTIONS */
+  section { padding: 6rem 3rem; }
+  .section-label {
+    font-size: 0.7rem; letter-spacing: 0.25em; text-transform: uppercase;
+    color: var(--accent); margin-bottom: 1rem;
+  }
+  .section-title {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: clamp(2rem, 4vw, 3.2rem);
+    font-weight: 300; line-height: 1.2;
+    margin-bottom: 3rem;
+  }
+  .divider {
+    width: 40px; height: 1px; background: var(--accent);
+    margin-bottom: 3rem;
+  }
+
+  /* ABOUT */
+  .about { background: var(--surface); }
+  .about-grid {
+    display: grid; grid-template-columns: 1fr 1fr;
+    gap: 5rem; max-width: 1100px; margin: 0 auto; align-items: start;
+  }
+  .about-text p { color: var(--muted); margin-bottom: 1.2rem; font-size: 0.95rem; }
+  .about-text p strong { color: var(--text); font-weight: 400; }
+  .about-stats { display: flex; flex-direction: column; gap: 1.5rem; }
+  .stat-item {
+    border-left: 1px solid var(--accent);
+    padding-left: 1.5rem;
+  }
+  .stat-num {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 2.8rem; font-weight: 300;
+    color: var(--accent); line-height: 1;
+  }
+  .stat-label { font-size: 0.8rem; color: var(--muted); letter-spacing: 0.05em; }
+
+  /* FORMATION */
+  .formation { background: var(--bg); }
+  .formation-inner { max-width: 900px; margin: 0 auto; }
+  .edu-item {
+    display: grid; grid-template-columns: 180px 1fr;
+    gap: 2rem; padding: 2rem 0;
+    border-bottom: 1px solid var(--border);
+  }
+  .edu-item:first-of-type { border-top: 1px solid var(--border); }
+  .edu-year { font-size: 0.8rem; color: var(--muted); padding-top: 0.2rem; }
+  .edu-degree {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 1.3rem; font-weight: 300;
+    margin-bottom: 0.3rem;
+  }
+  .edu-school { font-size: 0.85rem; color: var(--accent); margin-bottom: 0.5rem; }
+  .edu-desc { font-size: 0.85rem; color: var(--muted); }
+
+  /* EXPERIENCE */
+  .experience { background: var(--surface); }
+  .exp-inner { max-width: 900px; margin: 0 auto; }
+  .exp-item {
+    padding: 2.5rem 0;
+    border-bottom: 1px solid var(--border);
+    position: relative;
+  }
+  .exp-item:first-of-type { border-top: 1px solid var(--border); }
+  .exp-header { display: flex; justify-content: space-between; align-items: flex-start; gap: 1rem; flex-wrap: wrap; margin-bottom: 0.8rem; }
+  .exp-role {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 1.4rem; font-weight: 400;
+  }
+  .exp-date { font-size: 0.78rem; color: var(--muted); white-space: nowrap; }
+  .exp-company { font-size: 0.85rem; color: var(--accent); margin-bottom: 1rem; }
+  .exp-badge {
+    display: inline-block; font-size: 0.68rem; letter-spacing: 0.1em;
+    text-transform: uppercase; padding: 0.2rem 0.7rem;
+    border: 1px solid rgba(200,169,110,0.35); color: var(--accent);
+    border-radius: 2px; margin-bottom: 1rem;
+  }
+  .exp-desc { font-size: 0.88rem; color: var(--muted); line-height: 1.8; }
+  .exp-tags { display: flex; flex-wrap: wrap; gap: 0.5rem; margin-top: 1rem; }
+  .tag {
+    font-size: 0.72rem; letter-spacing: 0.06em; text-transform: uppercase;
+    padding: 0.25rem 0.75rem; background: var(--surface2);
+    border: 1px solid var(--border); color: var(--muted);
+    border-radius: 2px;
+  }
+
+  /* COMPETENCES */
+  .competences { background: var(--bg); }
+  .comp-grid {
+    display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+    gap: 1.5rem; max-width: 1100px; margin: 0 auto;
+  }
+  .comp-card {
+    background: var(--surface); border: 1px solid var(--border);
+    padding: 2rem; position: relative; overflow: hidden;
+    transition: border-color 0.2s;
+  }
+  .comp-card:hover { border-color: rgba(200,169,110,0.3); }
+  .comp-card::before {
+    content: attr(data-num);
+    position: absolute; top: -0.5rem; right: 1rem;
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 5rem; color: rgba(255,255,255,0.03); line-height: 1;
+    pointer-events: none;
+  }
+  .comp-icon { font-size: 1.4rem; margin-bottom: 1rem; }
+  .comp-title {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 1.2rem; margin-bottom: 0.8rem;
+  }
+  .comp-list { list-style: none; }
+  .comp-list li {
+    font-size: 0.82rem; color: var(--muted);
+    padding: 0.2rem 0;
+    padding-left: 1rem; position: relative;
+  }
+  .comp-list li::before {
+    content: '—'; position: absolute; left: 0; color: var(--accent);
+    font-size: 0.7rem;
+  }
+
+  /* CONTACT */
+  .contact { background: var(--surface); }
+  .contact-inner {
+    max-width: 700px; margin: 0 auto; text-align: center;
+  }
+  .contact p { color: var(--muted); font-size: 0.95rem; margin-bottom: 2.5rem; }
+  .contact-links { display: flex; justify-content: center; gap: 1.5rem; flex-wrap: wrap; }
+  .contact-link {
+    display: flex; align-items: center; gap: 0.6rem;
+    color: var(--text); text-decoration: none;
+    font-size: 0.85rem; letter-spacing: 0.05em;
+    padding: 0.85rem 1.8rem; border: 1px solid var(--border);
+    transition: border-color 0.2s, color 0.2s;
+  }
+  .contact-link:hover { border-color: var(--accent); color: var(--accent); }
+  .contact-link svg { width: 16px; height: 16px; fill: currentColor; }
+
+  /* FOOTER */
+  footer {
+    background: var(--bg); border-top: 1px solid var(--border);
+    padding: 2rem 3rem; text-align: center;
+    font-size: 0.78rem; color: var(--muted);
+  }
+
+  /* MOBILE */
+  @media (max-width: 768px) {
+    nav { padding: 1rem 1.5rem; }
+    .nav-links { display: none; }
+    section { padding: 4rem 1.5rem; }
+    .hero { padding: 6rem 1.5rem 4rem; }
+    .about-grid { grid-template-columns: 1fr; gap: 2.5rem; }
+    .edu-item { grid-template-columns: 1fr; gap: 0.5rem; }
+    .exp-header { flex-direction: column; gap: 0.3rem; }
+    .hero h1 { font-size: 3rem; }
+  }
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <div class="nav-logo">Soufyane</div>
+  <ul class="nav-links">
+    <li><a href="#about">À propos</a></li>
+    <li><a href="#formation">Formation</a></li>
+    <li><a href="#experience">Expériences</a></li>
+    <li><a href="#competences">Compétences</a></li>
+    <li><a href="#contact">Contact</a></li>
+  </ul>
+</nav>
+
+<!-- HERO -->
+<section class="hero" id="home">
+  <div class="hero-inner">
+    <span class="hero-tag">Consultant ERP · Chef de Projet Odoo</span>
+    <h1>Soufyane<br><em>Ait Lhaj</em><br>Tafraoute</h1>
+    <p class="hero-subtitle">
+      Ingénieur en Génie Industriel & Logistique, spécialisé en transformation digitale et implémentation ERP Odoo. Basé à Tourcoing, France.
+    </p>
+    <div class="hero-btns">
+      <a href="#experience" class="btn-primary">Voir mon parcours</a>
+      <a href="#contact" class="btn-outline">Me contacter</a>
+    </div>
+  </div>
+  <div class="hero-scroll">Scroll</div>
+</section>
+
+<!-- ABOUT -->
+<section class="about" id="about">
+  <div class="about-grid">
+    <div class="about-text">
+      <p class="section-label">À propos</p>
+      <h2 class="section-title">Ingénieur & Consultant<br>ERP Odoo</h2>
+      <div class="divider"></div>
+      <p>
+        Originaire de <strong>Chefchaouen, Maroc</strong>, j'ai construit un double profil à la croisée de l'ingénierie industrielle et du conseil en systèmes d'information. Titulaire d'un double diplôme — <strong>Ingénieur d'État (ENSA Tanger)</strong> et <strong>Master 2 OPSI (Université de Lorraine)</strong> — je me spécialise dans l'implémentation et le paramétrage de l'ERP Odoo.
+      </p>
+      <p>
+        Aujourd'hui <strong>Chef de Projet Odoo</strong> chez Oviala à Neuville-en-Ferrain, j'accompagne la transformation digitale d'entreprises avec une approche à la fois fonctionnelle et technique.
+      </p>
+      <p>
+        Mon parcours couvre les modules Odoo (ventes, achats, stock, CRM, facturation, fabrication), le développement de modules personnalisés, et l'intégration de systèmes tiers. Passionné de pédagogie et de contenu, j'aime rendre la technologie accessible.
+      </p>
+    </div>
+    <div class="about-stats">
+      <div class="stat-item">
+        <div class="stat-num">2+</div>
+        <div class="stat-label">Années d'expérience Odoo</div>
+      </div>
+      <div class="stat-item">
+        <div class="stat-num">10+</div>
+        <div class="stat-label">Projets clients accompagnés</div>
+      </div>
+      <div class="stat-item">
+        <div class="stat-num">2</div>
+        <div class="stat-label">Diplômes (France & Maroc)</div>
+      </div>
+      <div class="stat-item">
+        <div class="stat-num">26</div>
+        <div class="stat-label">Ans, profil international</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FORMATION -->
+<section class="formation" id="formation">
+  <div class="formation-inner">
+    <p class="section-label">Formation académique</p>
+    <h2 class="section-title">Parcours<br>Académique</h2>
+    <div class="divider"></div>
+
+    <div class="edu-item">
+      <div class="edu-year">2023 – 2025</div>
+      <div>
+        <div class="edu-degree">Master 2 — Optimisation et Pilotage des Systèmes Industriels (OPSI)</div>
+        <div class="edu-school">Université de Lorraine — UFR MIM, Metz, France</div>
+        <div class="edu-desc">Supply chain, MRP, WMS, TMS, lean manufacturing, gestion de projet, systèmes d'information industriels. Alternance intégrant un projet fin d'études chez Cortys SRL (Belgique).</div>
+      </div>
+    </div>
+
+    <div class="edu-item">
+      <div class="edu-year">2018 – 2023</div>
+      <div>
+        <div class="edu-degree">Ingénieur d'État — Génie Industriel et Logistique</div>
+        <div class="edu-school">ENSA Tanger — École Nationale des Sciences Appliquées, Maroc</div>
+        <div class="edu-desc">Génie industriel, logistique, amélioration continue, gestion de production, Lean Six Sigma, SAP. Stage de fin d'études chez Renault-Nissan (Tanger, tôlerie).</div>
+      </div>
+    </div>
+
+    <div class="edu-item">
+      <div class="edu-year">2018</div>
+      <div>
+        <div class="edu-degree">Baccalauréat Sciences Mathématiques</div>
+        <div class="edu-school">Maroc</div>
+        <div class="edu-desc">Mention très bien.</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- EXPERIENCE -->
+<section class="experience" id="experience">
+  <div class="exp-inner">
+    <p class="section-label">Expérience professionnelle</p>
+    <h2 class="section-title">Parcours<br>Professionnel</h2>
+    <div class="divider"></div>
+
+    <div class="exp-item">
+      <div class="exp-header">
+        <div class="exp-role">Chef de Projet Odoo</div>
+        <div class="exp-date">Mai 2026 – Présent</div>
+      </div>
+      <div class="exp-company">Oviala · Neuville-en-Ferrain, France</div>
+      <span class="exp-badge">CDI · Poste actuel</span>
+      <p class="exp-desc">
+        Pilotage de projets ERP Odoo au sein d'un acteur majeur du mobilier d'extérieur. Gestion des implémentations fonctionnelles et techniques, coordination des équipes métier, paramétrage des modules et suivi des livrables. Relocalisation à Tourcoing pour ce poste.
+      </p>
+      <div class="exp-tags">
+        <span class="tag">Odoo</span>
+        <span class="tag">Gestion de projet</span>
+        <span class="tag">Transformation digitale</span>
+        <span class="tag">Supply Chain</span>
+      </div>
+    </div>
+
+    <div class="exp-item">
+      <div class="exp-header">
+        <div class="exp-role">Consultant Technico-Fonctionnel ERP</div>
+        <div class="exp-date">Oct. 2025 – Avr. 2026</div>
+      </div>
+      <div class="exp-company">Cortys France (filiale de Cortys SRL, Belgique) · Grand Est, France</div>
+      <span class="exp-badge">CDI</span>
+      <p class="exp-desc">
+        Conseil et implémentation Odoo pour des clients variés : HomeCycle (asset tracking, abonnements, intégration Webflow–Odoo), KSI Immobilier & CCV Immo (gestion locative, commissions), Entente Hesbignonne de Football (suivi joueurs, cotisations), SEAD/Crypto Key Guardian (CRM, dashboard influenceurs). Développement de modules personnalisés en Python, déploiement Odoo.sh, environnements Docker locaux avec versioning GitHub.
+      </p>
+      <div class="exp-tags">
+        <span class="tag">Odoo Studio</span>
+        <span class="tag">Python</span>
+        <span class="tag">Odoo.sh</span>
+        <span class="tag">Docker</span>
+        <span class="tag">GitHub</span>
+        <span class="tag">Webflow</span>
+      </div>
+    </div>
+
+    <div class="exp-item">
+      <div class="exp-header">
+        <div class="exp-role">Stagiaire PFE — Consultant Odoo</div>
+        <div class="exp-date">Mars – Sept. 2025</div>
+      </div>
+      <div class="exp-company">Cortys SRL · Belgique (remote depuis Metz)</div>
+      <span class="exp-badge">Stage de fin d'études</span>
+      <p class="exp-desc">
+        Stage de fin d'études menant au Master 2 OPSI. Formation sur la plateforme Odoo UDU, prospection commerciale en région Grand Est, démonstrations et implémentations clients. Projet Kiko Caffé selon méthodologie Scrum Agile (Soufyane au delivery avec Emilio, Christophe Bouchat comme Scrum Master, Fabrice comme Product Owner).
+      </p>
+      <div class="exp-tags">
+        <span class="tag">Odoo</span>
+        <span class="tag">Scrum Agile</span>
+        <span class="tag">Prospection commerciale</span>
+        <span class="tag">Démonstration client</span>
+      </div>
+    </div>
+
+    <div class="exp-item">
+      <div class="exp-header">
+        <div class="exp-role">Stagiaire Ingénieur — Tôlerie</div>
+        <div class="exp-date">2022</div>
+      </div>
+      <div class="exp-company">Renault-Nissan · Tanger, Maroc</div>
+      <span class="exp-badge">Stage ingénieur</span>
+      <p class="exp-desc">
+        Stage en milieu industriel au sein de l'atelier tôlerie. Analyse des processus de production, amélioration continue, suivi des indicateurs de performance. Exposition aux méthodes lean et à la gestion d'un flux industriel à grande échelle.
+      </p>
+      <div class="exp-tags">
+        <span class="tag">Lean</span>
+        <span class="tag">Amélioration continue</span>
+        <span class="tag">Production industrielle</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- COMPETENCES -->
+<section class="competences" id="competences">
+  <div style="max-width: 1100px; margin: 0 auto;">
+    <p class="section-label">Compétences</p>
+    <h2 class="section-title">Expertises<br>Techniques & Métier</h2>
+    <div class="divider"></div>
+    <div class="comp-grid">
+
+      <div class="comp-card" data-num="01">
+        <div class="comp-icon">⚙️</div>
+        <div class="comp-title">ERP Odoo</div>
+        <ul class="comp-list">
+          <li>Odoo 16 / 17 / 18</li>
+          <li>Paramétrage fonctionnel</li>
+          <li>Odoo Studio (vues, champs)</li>
+          <li>Modules : CRM, Stock, Ventes, Achats, Facturation, MRP</li>
+          <li>Odoo.sh · Hébergement & déploiement</li>
+        </ul>
+      </div>
+
+      <div class="comp-card" data-num="02">
+        <div class="comp-icon">💻</div>
+        <div class="comp-title">Développement technique</div>
+        <ul class="comp-list">
+          <li>Python (modules Odoo custom)</li>
+          <li>JavaScript / XML (vues QWeb)</li>
+          <li>Docker (environnements locaux)</li>
+          <li>GitHub · Versioning</li>
+          <li>Intégrations API (Webflow–Odoo)</li>
+        </ul>
+      </div>
+
+      <div class="comp-card" data-num="03">
+        <div class="comp-icon">📦</div>
+        <div class="comp-title">Supply Chain & Logistique</div>
+        <ul class="comp-list">
+          <li>MRP / WMS / TMS</li>
+          <li>Gestion des stocks et flux</li>
+          <li>Lean manufacturing</li>
+          <li>Amélioration continue (Kaizen)</li>
+          <li>SAP (bases)</li>
+        </ul>
+      </div>
+
+      <div class="comp-card" data-num="04">
+        <div class="comp-icon">🗂️</div>
+        <div class="comp-title">Gestion de projet</div>
+        <ul class="comp-list">
+          <li>Scrum Agile (Scrum Master / Delivery)</li>
+          <li>Pilotage de projets ERP</li>
+          <li>Rédaction de spécifications</li>
+          <li>Formation et conduite du changement</li>
+          <li>Relation client & recueil des besoins</li>
+        </ul>
+      </div>
+
+      <div class="comp-card" data-num="05">
+        <div class="comp-icon">🌍</div>
+        <div class="comp-title">Langues</div>
+        <ul class="comp-list">
+          <li>Français — Professionnel avancé</li>
+          <li>Arabe — Langue maternelle</li>
+          <li>Anglais — Professionnel</li>
+          <li>Amazigh (Tamazight) — Courant</li>
+        </ul>
+      </div>
+
+      <div class="comp-card" data-num="06">
+        <div class="comp-icon">📊</div>
+        <div class="comp-title">Outils & environnements</div>
+        <ul class="comp-list">
+          <li>VS Code · PyCharm</li>
+          <li>Webflow</li>
+          <li>Notion · Trello · Jira</li>
+          <li>Office 365 / Google Workspace</li>
+          <li>Linux (Ubuntu)</li>
+        </ul>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- CONTACT -->
+<section class="contact" id="contact">
+  <div class="contact-inner">
+    <p class="section-label">Contact</p>
+    <h2 class="section-title">Travaillons<br>ensemble</h2>
+    <div class="divider" style="margin-left: auto; margin-right: auto;"></div>
+    <p>Disponible pour des échanges professionnels, des opportunités de collaboration ou simplement pour discuter d'Odoo et de transformation digitale.</p>
+    <div class="contact-links">
+
+      <a href="https://www.linkedin.com/in/soufyane-ait-lhaj-tafraoute" target="_blank" class="contact-link">
+        <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433c-1.144 0-2.063-.926-2.063-2.065 0-1.138.92-2.063 2.063-2.063 1.14 0 2.064.925 2.064 2.063 0 1.139-.925 2.065-2.064 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/></svg>
+        LinkedIn
+      </a>
+
+      <a href="mailto:soufyane@example.com" class="contact-link">
+        <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M24 5.457v13.909c0 .904-.732 1.636-1.636 1.636h-3.819V11.73L12 16.64l-6.545-4.91v9.273H1.636A1.636 1.636 0 0 1 0 19.366V5.457c0-2.023 2.309-3.178 3.927-1.964L5.455 4.64 12 9.548l6.545-4.91 1.528-1.145C21.69 2.28 24 3.434 24 5.457z"/></svg>
+        Email
+      </a>
+
+      <a href="https://github.com/soufyane" target="_blank" class="contact-link">
+        <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M12 .297c-6.63 0-12 5.373-12 12 0 5.303 3.438 9.8 8.205 11.385.6.113.82-.258.82-.577 0-.285-.01-1.04-.015-2.04-3.338.724-4.042-1.61-4.042-1.61C4.422 18.07 3.633 17.7 3.633 17.7c-1.087-.744.084-.729.084-.729 1.205.084 1.838 1.236 1.838 1.236 1.07 1.835 2.809 1.305 3.495.998.108-.776.417-1.305.76-1.605-2.665-.3-5.466-1.332-5.466-5.93 0-1.31.465-2.38 1.235-3.22-.135-.303-.54-1.523.105-3.176 0 0 1.005-.322 3.3 1.23.96-.267 1.98-.399 3-.405 1.02.006 2.04.138 3 .405 2.28-1.552 3.285-1.23 3.285-1.23.645 1.653.24 2.873.12 3.176.765.84 1.23 1.91 1.23 3.22 0 4.61-2.805 5.625-5.475 5.92.42.36.81 1.096.81 2.22 0 1.606-.015 2.896-.015 3.286 0 .315.21.69.825.57C20.565 22.092 24 17.592 24 12.297c0-6.627-5.373-12-12-12"/></svg>
+        GitHub
+      </a>
+
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <p>© 2026 Soufyane Ait Lhaj Tafraoute · Consultant Chef de Projet Odoo · Tourcoing, France</p>
+</footer>
+
+</body>
+</html>
